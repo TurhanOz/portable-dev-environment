@@ -17,17 +17,7 @@ docker tag my-work-env:1.0.0 my-work-env:latest
 
 ---
 
-## 2. Create a Dedicated Directory
-
-Create a directory on your host machine to store your application files:
-
-```bash
-mkdir -p ~/WorkEnvironment/app
-```
-
----
-
-## 3. Run the Docker Container
+## 2. Run the Docker Container
 
 Start the container with the following command:
 
@@ -42,7 +32,7 @@ docker run -it --name my-work-env -v "$(pwd)/app:/app" my-work-env:latest zsh
 
 ---
 
-## 4. Test the Container
+## 3. Test the Container
 
 Run the following commands inside the container to verify the setup:
 
@@ -56,7 +46,7 @@ echo $SHELL # Should display /usr/bin/zsh
 
 ---
 
-## 5. Stop and Remove the Container
+## 4. Stop and Remove the Container
 
 To stop and remove the container, use the following commands:
 
@@ -67,7 +57,7 @@ docker rm my-work-env
 
 ---
 
-## 6. Customization
+## 5. Customization
 
 If you're using the **p10k theme** and want to remove the `root@xxxxx` part from the shell prompt, update your `.p10k.zsh` configuration file. Locate and modify the following line:
 
