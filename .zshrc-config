@@ -1,0 +1,23 @@
+# Configuration de base Oh My Zsh
+export ZSH="/root/.oh-my-zsh"
+# themes possible : robbyrussell, agnoster, powerlevel10k/powerlevel10k, etc.
+ZSH_THEME="powerlevel10k/powerlevel10k"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+
+# Configurations NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Configurations Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Définir la variable SHELL (optionnel, mais utile pour l'affichage)
+export SHELL=/usr/bin/zsh
+
+# Load p10k configuration if it exists and theme set to powerlevel10k
+[[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" && -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
