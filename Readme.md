@@ -1,6 +1,6 @@
-# Work Environment Setup with Docker
+# Side-Car : Work Environment Setup with Docker
 
-This guide provides step-by-step instructions to set up and use a Docker-based development environment, ensuring a consistent and efficient workflow. 
+This guide provides step-by-step instructions to set up and use a Docker-based development environment (side-car), ensuring a consistent and efficient workflow. 
 
 For a detailed discussion on the benefits and necessity of containerized development environments, check out this [article](https://medium.com/@turhan.oz/productivity-and-serenity-in-2025-the-indispensable-containerized-development-environment-3d023dd95ec6).
 
@@ -11,8 +11,8 @@ For a detailed discussion on the benefits and necessity of containerized develop
 Run the following commands to build and tag the Docker image:
 
 ```bash
-docker build -t my-work-env:1.0.0 .
-docker tag my-work-env:1.0.0 my-work-env:latest
+docker build -t side-car:1.0.0 .
+docker tag side-car:1.0.0 side-car:latest
 ```
 
 ---
@@ -22,7 +22,7 @@ docker tag my-work-env:1.0.0 my-work-env:latest
 Start the container with the following command:
 
 ```bash
-docker run -it --name my-work-env -v "$(pwd)/app:/app" my-work-env:latest zsh
+docker run -it --name side-car -v "$(pwd)/app:/app" side-car:latest zsh
 ```
 
 ### Explanation:
@@ -41,6 +41,7 @@ node -v    # Should show v20.x.x
 npm -v     # Should display the npm version
 python -V  # Should show Python 3.12.0
 git --version
+gh --version
 echo $SHELL # Should display /usr/bin/zsh
 ```
 
@@ -51,8 +52,8 @@ echo $SHELL # Should display /usr/bin/zsh
 To stop and remove the container, use the following commands:
 
 ```bash
-docker stop my-work-env
-docker rm my-work-env
+docker stop side-car
+docker rm side-car
 ```
 
 ---
@@ -64,6 +65,12 @@ If you're using the **p10k theme** and want to remove the `root@xxxxx` part from
 ```bash
 typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
 ```
+
+---
+
+## 6.👥 Maintainers
+
+- TurhanOz ([@TurhanOz](https://github.com/TurhanOz))
 
 ---
 
