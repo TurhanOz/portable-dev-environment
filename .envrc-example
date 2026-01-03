@@ -1,0 +1,8 @@
+# local config for Git identity in this folder
+export GIT_AUTHOR_NAME="name"
+export GIT_AUTHOR_EMAIL="pro@entreprise.com"
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+# Token GitHub spécifique
+export GITHUB_TOKEN=ghp_YOUR_PAT_TOKEN_HERE

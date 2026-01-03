@@ -5,7 +5,9 @@ FROM debian:bookworm-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     locales \
-    # ... toutes tes autres dépendances existantes
+    direnv \
+    zip \
+    nano \
     curl \
     git \
     zsh \
@@ -36,6 +38,8 @@ RUN apt-get update && \
     # locale configuration
     echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen fr_FR.UTF-8 && \
+    # direnv hook for ZSH (to activate direnv on 'cd')
+    echo 'eval "$(direnv hook zsh)"' >> /root/.zshrc && \
     # APT cache cleanup
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
