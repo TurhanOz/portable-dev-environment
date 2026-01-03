@@ -32,7 +32,21 @@ docker run -it --name side-car -v "$(pwd)/app:/app" side-car:latest zsh
 
 ---
 
-## 3. Test the Container
+## 3. Connect to the Docker Container
+If your container is already running, you can connect to it : 
+```bash
+docker exec -it side-car zsh
+```
+
+### Explanation:
+- **exec**: Instructs Docker to run a new process or command inside an already existing and running container.  
+- **-it**: (Interactive + TTY) Essential for interacting with the container; it allows you to type commands and see the output in real-time, just like a standard terminal. 
+- **side-car**: This is the specific name we assigned to our container using the --name flag during the initial setup.  
+- **zsh**: The specific shell we want to launch (since our Dockerfile is pre-configured with Oh My Zsh).  
+
+---
+
+## 4. Test the Container
 
 Run the following commands inside the container to verify the setup:
 
@@ -47,7 +61,7 @@ echo $SHELL # Should display /usr/bin/zsh
 
 ---
 
-## 4. Stop and Remove the Container
+## 5. Stop and Remove the Container
 
 To stop and remove the container, use the following commands:
 
@@ -58,17 +72,23 @@ docker rm side-car
 
 ---
 
-## 5. Customization
-
+## 6. Customization
+### p10k theme:
 If you're using the **p10k theme** and want to remove the `root@xxxxx` part from the shell prompt, update your `.p10k.zsh` configuration file. Locate and modify the following line:
 
 ```bash
 typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
 ```
 
+### github cli:
+To use the `gh` github cli, simply set the following environment variable in your container :
+```bash 
+export GITHUB_TOKEN=${MY_GITHUB_TOKEN}
+gh auth status # checks if GITHUB_TOKEN or session is active
+```
 ---
 
-## 6.👥 Maintainers
+## 7. Maintainers
 
 - TurhanOz ([@TurhanOz](https://github.com/TurhanOz))
 
