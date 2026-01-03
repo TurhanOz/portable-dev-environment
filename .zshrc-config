@@ -21,3 +21,6 @@ export SHELL=/usr/bin/zsh
 
 # Load p10k configuration if it exists and theme set to powerlevel10k
 [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" && -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+# Hook direnv (whenever a cd happens, direnv will check for .envrc)
+eval "$(direnv hook zsh)"

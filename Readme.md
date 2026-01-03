@@ -73,19 +73,50 @@ docker rm side-car
 ---
 
 ## 6. Customization
-### p10k theme:
-If you're using the **p10k theme** and want to remove the `root@xxxxx` part from the shell prompt, update your `.p10k.zsh` configuration file. Locate and modify the following line:
+### 🐚 Shell Prompt (Powerlevel10k)
+To keep your terminal clean, you can remove or customize the `root@hostname` part in the prompt. Edit your `.p10k.zsh` configuration file and look for the `POWERLEVEL9K_CONTEXT_TEMPLATE` variable.
 
 ```bash
-typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
+# To hide the context completely
+typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE=''
+
+# To show only a custom icon (e.g., a lightning bolt)
+typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='⚡'
 ```
 
-### github cli:
-To use the `gh` github cli, simply set the following environment variable in your container :
+### 🐙 GitHub Authentication & Multi-Account
+This container is pre-configured with a **Git Credential Helper** linked to the GitHub CLI (`gh`). 
+
+**How it works:** Git will automatically use the `GITHUB_TOKEN` variable currently present in your environment for all operations (`push`, `pull`, `clone`). You will never have to manually enter your username or Personal Access Token (PAT).
+
+#### A. Manual Testing
+To quickly test a specific account or token in your current session:
 ```bash 
-export GITHUB_TOKEN=${MY_GITHUB_TOKEN}
-gh auth status # checks if GITHUB_TOKEN or session is active
+export GITHUB_TOKEN=ghp_your_personal_access_token
+gh auth status # verify if the token is active and valid
 ```
+
+#### B. Per-Project Automation (Recommended)
+To manage different identities (e.g., **Work** vs. **Personal**) seamlessly without switching sessions, use a `.envrc` file in your project folders. **direnv** will load the correct credentials automatically when you `cd` into the directory.
+
+**Create a file: `/app/my-project/.envrc`**
+```bash 
+# 1. Local Git Identity for this specific project
+export GIT_AUTHOR_NAME="Your Name"
+export GIT_AUTHOR_EMAIL="pro@entreprise.com"
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+# 2. GitHub Token (used by both 'gh' and 'git' commands)
+export GITHUB_TOKEN=ghp_YOUR_PAT_TOKEN_FOR_THIS_ACCOUNT
+```
+
+> **Note:** After creating or editing a `.envrc` file, you must run `direnv allow` to authorize the environment loading in that folder.
+---
+
+### 🦊 GitLab CLI
+Currently disabled to prioritize GitHub multi-account efficiency. The glab binary can be added back via the Dockerfile for a later update
+
 ---
 
 ## 7. Maintainers

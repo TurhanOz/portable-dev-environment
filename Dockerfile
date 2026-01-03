@@ -6,6 +6,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     locales \
     direnv \
+    gnupg \
+    less \
     zip \
     nano \
     curl \
@@ -35,6 +37,12 @@ RUN apt-get update && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
     apt-get update && \
     apt-get install -y --no-install-recommends gh && \
+    # --- GitHub Auth Automation & Docker Compatibility (todo gitlab) ---
+    git config --global credential."https://github.com".helper "!gh auth git-credential" && \
+    git config --global --add safe.directory '*' && \
+    git config --global core.excludesfile ~/.gitignore_global && \
+    echo ".envrc" >> ~/.gitignore_global && \
+    # ---------------------------------------------
     # locale configuration
     echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen fr_FR.UTF-8 && \
