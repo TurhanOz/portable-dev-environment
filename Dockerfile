@@ -29,7 +29,8 @@ RUN apt-get update && \
     tk-dev \
     libffi-dev \
     liblzma-dev \
-    python3-openssl && \
+    python3-openssl \
+    ffmpeg && \
     # Add GitHub CLI repo
     mkdir -p -m 755 /etc/apt/keyrings && \
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/etc/apt/keyrings/githubcli-archive-keyring.gpg && \
@@ -53,9 +54,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Step 2 : Set environment variables for locale
-ENV LANG fr_FR.UTF-8
-ENV LANGUAGE fr_FR:en
-ENV LC_ALL fr_FR.UTF-8
+ENV LANG=fr_FR.UTF-8 \
+    LANGUAGE=fr_FR:en \
+    LC_ALL=fr_FR.UTF-8
 
 # Install NVM (Node Version Manager)
 ENV NVM_DIR="/root/.nvm"

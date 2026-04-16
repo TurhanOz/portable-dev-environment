@@ -19,16 +19,29 @@ docker tag side-car:1.0.0 side-car:latest
 
 ## 2. Run the Docker Container
 
-Start the container with the following command:
+On your host, navigate to the directory where your projects are located and start the container. Choose the command based on your hardware:
+
+### Option A: With GPU Acceleration (Recommended)
+
+Use this if you have an NVIDIA GPU on your host. This is significantly faster for tasks using AI models
+
 
 ```bash
-docker run -it --name side-car -v "$(pwd)/app:/app" side-car:latest zsh
+docker run -it --name side-car --gpus all -v "$(pwd)/:/app" side-car:latest zsh
+```
+
+### Option B: CPU Only
+
+Use this as a fallback if you don't have a dedicated GPU or haven't configured the NVIDIA toolkit yet.
+
+```bash
+docker run -it --name side-car -v "$(pwd)/:/app" side-car:latest zsh
 ```
 
 ### Explanation:
-- **`$(pwd)/app`**: Refers to the `app` directory in the current working directory on the host machine.
-- **`/app`**: The directory inside the container where the `app` directory is mounted.
-- This setup allows files in the `app` directory on the host to be accessible and editable inside the container.
+- **--gpus all`**: Grants the container access to your host's NVIDIA GPU(s).
+- **`$(pwd)/`**: Refers to your current directory on the host machine containing your projects
+- **`/app`**: The directory inside the container where your host files are mounted.
 
 ---
 
@@ -125,13 +138,16 @@ Currently disabled to prioritize GitHub multi-account efficiency. The glab binar
 
 ---
 
-## Notes
+## 8. Notes
 
 - Ensure Docker is installed and running on your machine before starting.
 - The `app` directory on the host machine will sync with the `/app` directory inside the container, enabling seamless file sharing.
 
 ---
 
-## License
+## 9. License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). You are free to use, modify, and distribute this software, provided that the original license is included in all copies or substantial portions of the software.
+
+
+---
